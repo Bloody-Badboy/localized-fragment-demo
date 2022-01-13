@@ -6,15 +6,11 @@ import android.view.View
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import dev.arpan.localized.fragment.databinding.FragmentFourthBinding
+import dev.arpan.localized.fragment.databinding.FragmentFifthBinding
 import java.util.*
 
 
-class FourthFragment : BaseFragment<FragmentFourthBinding>(R.layout.fragment_fourth) {
-
-    override fun applyOverrideTheme(): Int {
-        return R.style.Theme_LocalizedFragment_Yellow
-    }
+class FifthFragment : BaseFragment<FragmentFifthBinding>(R.layout.fragment_fifth) {
 
     override fun applyOverrideLocal(): Locale? {
         return Locale.CHINESE
@@ -24,23 +20,23 @@ class FourthFragment : BaseFragment<FragmentFourthBinding>(R.layout.fragment_fou
         super.onViewCreated(view, savedInstanceState)
 
         binding.tv2.text = getString(R.string.info, requireContext() is Activity)
-        binding.tv3.text = getString(R.string.hello_fourth_fragment)
+        binding.tv3.text = getString(R.string.hello_fifth_fragment)
 
         binding.button.setOnClickListener {
-            findNavController().navigate(R.id.to_fifth)
+            findNavController().navigate(R.id.to_first)
         }
 
         binding.buttonToast.setOnClickListener {
             Toast.makeText(
                 requireContext(),
-                R.string.hello_fourth_fragment,
+                R.string.hello_fifth_fragment,
                 Toast.LENGTH_SHORT
             ).show()
         }
 
         binding.buttonDialog.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
-                .setMessage(R.string.hello_fourth_fragment)
+                .setMessage(R.string.hello_fifth_fragment)
                 .setPositiveButton(android.R.string.ok) { _, _ ->
 
                 }.show()

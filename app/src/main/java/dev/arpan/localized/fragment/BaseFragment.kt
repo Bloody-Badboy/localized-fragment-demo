@@ -16,7 +16,6 @@
 package dev.arpan.localized.fragment
 
 import android.content.Context
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -44,18 +43,17 @@ open class BaseFragment<out Binding : ViewBinding>(@LayoutRes private val conten
 
     private var wrappedCtx: Context? = null
 
+    override fun onGetLayoutInflater(savedInstanceState: Bundle?): LayoutInflater {
+        return super.onGetLayoutInflater(savedInstanceState).cloneInContext(requireContext())
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val view = inflater.inflate(contentLayoutId, container, false)
         val locale = applyOverrideLocal()
-        val themedInflater = if (applyOverrideTheme() != 0 || locale != null) {
-            inflater.cloneInContext(getWrappedContext())
-        } else {
-            inflater
-        }
-        val view = themedInflater.inflate(contentLayoutId, container, false)
         if (locale != null) {
             ViewCompat.setLayoutDirection(
                 view,
@@ -94,33 +92,28 @@ open class BaseFragment<out Binding : ViewBinding>(@LayoutRes private val conten
             !color.isDarkColor()
     }
 
-    private fun getWrappedContext(): Context {
-        val baseCtx = checkNotNull(super.getContext()) {
-            "Fragment $this not attached to a context."
-        }
-        val locale = applyOverrideLocal()
-        if (applyOverrideTheme() != 0) {
-            val themedCtx = ContextThemeWrapper(baseCtx, applyOverrideTheme())
-            if (locale != null) {
-                themedCtx.applyOverrideConfiguration(baseCtx.createLocalizedConfiguration(locale))
+    override fun getContext(): Context {
+        return wrappedCtx ?: run {
+            val baseCtx = checkNotNull(super.getContext()) {
+                "Fragment $this not attached to a context."
             }
-            wrappedCtx = themedCtx
-        } else {
-            if (locale != null) {
-                val themedCtx = ContextThemeWrapper(baseCtx, applyOverrideTheme())
-                themedCtx.applyOverrideConfiguration(baseCtx.createLocalizedConfiguration(locale))
-                wrappedCtx = themedCtx
+            ContextThemeWrapper(baseCtx, applyOverrideTheme()).apply {
+                val locale = applyOverrideLocal()
+                if (locale != null) {
+                    applyOverrideConfiguration(
+                        baseCtx.createLocalizedConfiguration(
+                            locale
+                        )
+                    )
+                }
+            }.also {
+                wrappedCtx = it
             }
         }
-        return wrappedCtx ?: baseCtx
-    }
-
-    override fun getContext(): Context? {
-        return getWrappedContext()
     }
 
     protected open fun applyOverrideTheme(): Int {
-        return 0
+        return R.style.Theme_LocalizedFragment
     }
 
     protected open fun applyOverrideLocal(): Locale? {

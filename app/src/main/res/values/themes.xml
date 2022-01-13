@@ -33,6 +33,7 @@
         <item name="colorSecondaryVariant">#FFA000</item>
 
         <item name="android:windowBackground">#FFF59D</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog.Yellow</item>
     </style>
 
     <style name="Theme.LocalizedFragment.Green" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -43,6 +44,15 @@
         <item name="colorSecondaryVariant">#388E3C</item>
 
         <item name="android:windowBackground">#A5D6A7</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog.Green</item>
+    </style>
+
+    <style name="ThemeOverlay.App.MaterialAlertDialog.Green" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorSurface">#A5D6A7</item>
+    </style>
+
+    <style name="ThemeOverlay.App.MaterialAlertDialog.Yellow" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorSurface">#FFF59D</item>
     </style>
 
     <style name="Theme.LocalizedFragment.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

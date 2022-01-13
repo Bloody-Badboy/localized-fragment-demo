@@ -2,13 +2,10 @@ package dev.arpan.localized.fragment
 
 import android.app.Activity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.appcompat.view.ContextThemeWrapper
-import androidx.core.text.TextUtilsCompat
-import androidx.core.view.ViewCompat
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.arpan.localized.fragment.databinding.FragmentSecondBinding
 import java.util.*
 
@@ -31,6 +28,22 @@ class SecondFragment : BaseFragment<FragmentSecondBinding>(R.layout.fragment_sec
 
         binding.button.setOnClickListener {
             findNavController().navigate(R.id.to_third)
+        }
+
+        binding.buttonToast.setOnClickListener {
+            Toast.makeText(
+                requireContext(),
+                R.string.hello_second_fragment,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
+        binding.buttonDialog.setOnClickListener {
+            MaterialAlertDialogBuilder(requireContext())
+                .setMessage(R.string.hello_second_fragment)
+                .setPositiveButton(android.R.string.ok) { _, _ ->
+
+                }.show()
         }
     }
 }

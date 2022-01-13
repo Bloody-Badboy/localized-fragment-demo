@@ -1,4 +1,5 @@
 <resources>
     <string name="first">第一的</string>
     <string name="hello_fourth_fragment">你好第四个片段</string>
+    <string name="hello_fifth_fragment">你好第五个片段</string>
 </resources>

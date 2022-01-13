@@ -9,7 +9,7 @@
         android:id="@+id/FirstFragment"
         android:name="dev.arpan.localized.fragment.FirstFragment"
         android:label="FirstFragment"
-        tools:layout="@layout/fragment_first" >
+        tools:layout="@layout/fragment_first">
         <action
             android:id="@+id/to_second"
             app:destination="@id/SecondFragment" />
@@ -27,7 +27,7 @@
         android:id="@+id/ThirdFragment"
         android:name="dev.arpan.localized.fragment.ThirdFragment"
         android:label="ThirdFragment"
-        tools:layout="@layout/fragment_third" >
+        tools:layout="@layout/fragment_third">
         <action
             android:id="@+id/to_fourth"
             app:destination="@id/FourthFragment" />
@@ -36,7 +36,16 @@
         android:id="@+id/FourthFragment"
         android:name="dev.arpan.localized.fragment.FourthFragment"
         android:label="FourthFragment"
-        tools:layout="@layout/fragment_fourth" >
+        tools:layout="@layout/fragment_fourth">
+        <action
+            android:id="@+id/to_fifth"
+            app:destination="@id/FifthFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/FifthFragment"
+        android:name="dev.arpan.localized.fragment.FifthFragment"
+        android:label="FifthFragment"
+        tools:layout="@layout/fragment_fifth">
         <action
             android:id="@+id/to_first"
             app:destination="@id/FirstFragment"

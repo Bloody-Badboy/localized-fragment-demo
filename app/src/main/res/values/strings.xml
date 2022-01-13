@@ -8,5 +8,6 @@
     <string name="hello_second_fragment">Hello second fragment</string>
     <string name="hello_third_fragment">Hello third fragment</string>
     <string name="hello_fourth_fragment">Hello fourth fragment</string>
+    <string name="hello_fifth_fragment">Hello fifth fragment</string>
     <string name="info">Context is activity: %1$b</string>
 </resources>

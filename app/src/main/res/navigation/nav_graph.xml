@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/FirstFragment">
+
+    <fragment
+        android:id="@+id/FirstFragment"
+        android:name="dev.arpan.localized.fragment.FirstFragment"
+        android:label="FirstFragment"
+        tools:layout="@layout/fragment_first" >
+        <action
+            android:id="@+id/to_second"
+            app:destination="@id/SecondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SecondFragment"
+        android:name="dev.arpan.localized.fragment.SecondFragment"
+        android:label="SecondFragment"
+        tools:layout="@layout/fragment_second">
+        <action
+            android:id="@+id/to_third"
+            app:destination="@id/ThirdFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ThirdFragment"
+        android:name="dev.arpan.localized.fragment.ThirdFragment"
+        android:label="ThirdFragment"
+        tools:layout="@layout/fragment_third" >
+        <action
+            android:id="@+id/to_fourth"
+            app:destination="@id/FourthFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/FourthFragment"
+        android:name="dev.arpan.localized.fragment.FourthFragment"
+        android:label="FourthFragment"
+        tools:layout="@layout/fragment_fourth" >
+        <action
+            android:id="@+id/to_first"
+            app:destination="@id/FirstFragment"
+            app:popUpTo="@id/FirstFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>

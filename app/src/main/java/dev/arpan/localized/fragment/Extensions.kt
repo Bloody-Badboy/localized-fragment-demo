@@ -2,6 +2,7 @@ package dev.arpan.localized.fragment
 
 import android.content.Context
 import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Build
 import android.os.LocaleList
 import android.util.TypedValue
@@ -21,8 +22,8 @@ fun Context.getThemeColorAttribute(@AttrRes resId: Int): Int {
 }
 
 
-fun Context.createLocalizedConfiguration(locale: Locale): Configuration {
-    val configuration = Configuration(resources.configuration)
+fun Resources.createLocalizedConfiguration(locale: Locale): Configuration {
+    val configuration = Configuration(configuration)
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         configuration.setLocale(locale)
         configuration.setLocales(LocaleList.getDefault().prepend(locale))
@@ -30,6 +31,14 @@ fun Context.createLocalizedConfiguration(locale: Locale): Configuration {
         configuration.setLocale(locale)
     }
     return configuration
+}
+
+fun Context.createLocalizedConfiguration(locale: Locale): Configuration {
+    return resources.createLocalizedConfiguration(locale)
+}
+
+fun Context.createLocalizedContext(locale: Locale): Context {
+    return createConfigurationContext(createLocalizedConfiguration(locale))
 }
 
 val Context.currentLocal: Locale
@@ -42,14 +51,10 @@ val Context.currentLocal: Locale
     }
 
 @RequiresApi(Build.VERSION_CODES.N)
-private fun LocaleList.prepend(locale: Locale): LocaleList {
+fun LocaleList.prepend(locale: Locale): LocaleList {
     val locales = mutableSetOf(locale)
     (0 until size()).forEach {
         locales.add(get(it))
     }
     return LocaleList(*locales.toTypedArray())
-}
-
-fun Context.createLocalizedContext(locale: Locale): Context {
-    return createConfigurationContext(createLocalizedConfiguration(locale))
 }

@@ -97,14 +97,24 @@ open class BaseFragment<out Binding : ViewBinding>(@LayoutRes private val conten
             val baseCtx = checkNotNull(super.getContext()) {
                 "Fragment $this not attached to a context."
             }
-            ContextThemeWrapper(baseCtx, applyOverrideTheme()).apply {
-                val locale = applyOverrideLocal()
-                if (locale != null) {
-                    applyOverrideConfiguration(
-                        baseCtx.createLocalizedConfiguration(
-                            locale
-                        )
-                    )
+            val locale = applyOverrideLocal()
+            when {
+                applyOverrideTheme() != 0 -> {
+                    ContextThemeWrapper(baseCtx, applyOverrideTheme()).apply {
+                        if (locale != null) {
+                            applyOverrideConfiguration(
+                                baseCtx.createLocalizedConfiguration(
+                                    locale
+                                )
+                            )
+                        }
+                    }
+                }
+                locale != null -> {
+                    ContextLocaleWrapper(baseCtx, locale)
+                }
+                else -> {
+                    baseCtx
                 }
             }.also {
                 wrappedCtx = it
@@ -113,7 +123,7 @@ open class BaseFragment<out Binding : ViewBinding>(@LayoutRes private val conten
     }
 
     protected open fun applyOverrideTheme(): Int {
-        return R.style.Theme_LocalizedFragment
+        return 0
     }
 
     protected open fun applyOverrideLocal(): Locale? {
